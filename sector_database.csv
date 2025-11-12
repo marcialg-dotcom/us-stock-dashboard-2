@@ -1,0 +1,139 @@
+ticker,sector,industry
+AAPL,Technology,Consumer Electronics
+MSFT,Technology,Software
+GOOGL,Communication Services,Internet Content & Information
+GOOG,Communication Services,Internet Content & Information
+AMZN,Consumer Cyclical,Internet Retail
+META,Communication Services,Internet Content & Information
+NVDA,Technology,Semiconductors
+TSLA,Consumer Cyclical,Auto Manufacturers
+AMD,Technology,Semiconductors
+INTC,Technology,Semiconductors
+ORCL,Technology,Software
+CRM,Technology,Software
+ADBE,Technology,Software
+CSCO,Technology,Communication Equipment
+AVGO,Technology,Semiconductors
+QCOM,Technology,Semiconductors
+TXN,Technology,Semiconductors
+IBM,Technology,Information Technology Services
+NFLX,Communication Services,Entertainment
+PYPL,Financial Services,Credit Services
+SQ,Technology,Software
+SHOP,Technology,Software
+UBER,Technology,Software
+LYFT,Technology,Software
+SNAP,Communication Services,Internet Content & Information
+TWTR,Communication Services,Internet Content & Information
+SPOT,Communication Services,Entertainment
+ZM,Technology,Software
+DOCU,Technology,Software
+SNOW,Technology,Software
+PLTR,Technology,Software
+JNJ,Healthcare,Drug Manufacturers
+UNH,Healthcare,Healthcare Plans
+PFE,Healthcare,Drug Manufacturers
+ABBV,Healthcare,Drug Manufacturers
+TMO,Healthcare,Diagnostics & Research
+MRK,Healthcare,Drug Manufacturers
+LLY,Healthcare,Drug Manufacturers
+ABT,Healthcare,Medical Devices
+DHR,Healthcare,Diagnostics & Research
+BMY,Healthcare,Drug Manufacturers
+AMGN,Healthcare,Biotechnology
+GILD,Healthcare,Biotechnology
+CVS,Healthcare,Healthcare Plans
+CI,Healthcare,Healthcare Plans
+ISRG,Healthcare,Medical Devices
+REGN,Healthcare,Biotechnology
+VRTX,Healthcare,Biotechnology
+BIIB,Healthcare,Biotechnology
+MRNA,Healthcare,Biotechnology
+BNTX,Healthcare,Biotechnology
+JPM,Financial Services,Banks
+BAC,Financial Services,Banks
+WFC,Financial Services,Banks
+C,Financial Services,Banks
+GS,Financial Services,Capital Markets
+MS,Financial Services,Capital Markets
+BLK,Financial Services,Asset Management
+SCHW,Financial Services,Capital Markets
+AXP,Financial Services,Credit Services
+V,Financial Services,Credit Services
+MA,Financial Services,Credit Services
+USB,Financial Services,Banks
+PNC,Financial Services,Banks
+TFC,Financial Services,Banks
+COF,Financial Services,Credit Services
+BK,Financial Services,Asset Management
+STT,Financial Services,Asset Management
+HD,Consumer Cyclical,Home Improvement Retail
+NKE,Consumer Cyclical,Footwear & Accessories
+MCD,Consumer Cyclical,Restaurants
+SBUX,Consumer Cyclical,Restaurants
+LOW,Consumer Cyclical,Home Improvement Retail
+TGT,Consumer Cyclical,Discount Stores
+TJX,Consumer Cyclical,Apparel Retail
+BKNG,Consumer Cyclical,Travel Services
+GM,Consumer Cyclical,Auto Manufacturers
+F,Consumer Cyclical,Auto Manufacturers
+ABNB,Consumer Cyclical,Travel Services
+WMT,Consumer Defensive,Discount Stores
+PG,Consumer Defensive,Household & Personal Products
+KO,Consumer Defensive,Beverages
+PEP,Consumer Defensive,Beverages
+COST,Consumer Defensive,Discount Stores
+PM,Consumer Defensive,Tobacco
+MO,Consumer Defensive,Tobacco
+CL,Consumer Defensive,Household & Personal Products
+KMB,Consumer Defensive,Household & Personal Products
+GIS,Consumer Defensive,Packaged Foods
+K,Consumer Defensive,Packaged Foods
+KHC,Consumer Defensive,Packaged Foods
+XOM,Energy,Oil & Gas Integrated
+CVX,Energy,Oil & Gas Integrated
+COP,Energy,Oil & Gas E&P
+SLB,Energy,Oil & Gas Equipment & Services
+EOG,Energy,Oil & Gas E&P
+MPC,Energy,Oil & Gas Refining & Marketing
+PSX,Energy,Oil & Gas Refining & Marketing
+VLO,Energy,Oil & Gas Refining & Marketing
+OXY,Energy,Oil & Gas E&P
+HAL,Energy,Oil & Gas Equipment & Services
+BA,Industrials,Aerospace & Defense
+HON,Industrials,Conglomerates
+UNP,Industrials,Railroads
+UPS,Industrials,Integrated Freight & Logistics
+CAT,Industrials,Farm & Heavy Construction Machinery
+DE,Industrials,Farm & Heavy Construction Machinery
+LMT,Industrials,Aerospace & Defense
+RTX,Industrials,Aerospace & Defense
+GE,Industrials,Conglomerates
+MMM,Industrials,Conglomerates
+LIN,Basic Materials,Specialty Chemicals
+APD,Basic Materials,Specialty Chemicals
+ECL,Basic Materials,Specialty Chemicals
+DD,Basic Materials,Specialty Chemicals
+DOW,Basic Materials,Chemicals
+NEM,Basic Materials,Gold
+FCX,Basic Materials,Copper
+AMT,Real Estate,REIT - Specialty
+PLD,Real Estate,REIT - Industrial
+CCI,Real Estate,REIT - Specialty
+EQIX,Real Estate,REIT - Specialty
+PSA,Real Estate,REIT - Industrial
+SPG,Real Estate,REIT - Retail
+O,Real Estate,REIT - Retail
+NEE,Utilities,Utilities - Regulated Electric
+DUK,Utilities,Utilities - Regulated Electric
+SO,Utilities,Utilities - Regulated Electric
+D,Utilities,Utilities - Regulated Electric
+AEP,Utilities,Utilities - Regulated Electric
+EXC,Utilities,Utilities - Regulated Electric
+SRE,Utilities,Utilities - Diversified
+DIS,Communication Services,Entertainment
+CMCSA,Communication Services,Entertainment
+T,Communication Services,Telecom Services
+VZ,Communication Services,Telecom Services
+TMUS,Communication Services,Telecom Services
+CHTR,Communication Services,Entertainment
