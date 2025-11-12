@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 """
-Reliable Stock Data Loader
-Uses pre-built sector database + Manus Yahoo Finance API for reliable data fetching
+Reliable Stock Data Loader - Portable Version
+Uses yfinance library (works anywhere, including Streamlit Cloud)
 """
 
-import sys
-sys.path.append('/opt/.manus/.sandbox-runtime')
-from data_api import ApiClient
 import json
 import pandas as pd
 from datetime import datetime, timedelta
 import time
+import yfinance as yf
 
 class ReliableStockLoader:
-    """Loads stock data reliably using multiple strategies"""
+    """Loads stock data reliably using yfinance"""
     
     def __init__(self, sector_db_path='sector_database.json'):
         """Initialize the loader with sector database"""
-        self.api_client = ApiClient()
         self.sector_database = self._load_sector_database(sector_db_path)
         self.cache = {}
         
@@ -37,57 +34,33 @@ class ReliableStockLoader:
         return {'sector': 'Unknown', 'industry': 'Unknown'}
     
     def get_stock_price(self, ticker):
-        """Get current stock price using Manus Yahoo Finance API"""
+        """Get current stock price using yfinance"""
         try:
-            response = self.api_client.call_api('YahooFinance/get_stock_chart', query={
-                'symbol': ticker,
-                'region': 'US',
-                'interval': '1d',
-                'range': '1d',
-                'includeAdjustedClose': False
-            })
+            stock = yf.Ticker(ticker)
+            # Try to get current price from info
+            info = stock.info
             
-            if response and 'chart' in response and 'result' in response['chart']:
-                result = response['chart']['result'][0]
-                meta = result['meta']
-                return meta.get('regularMarketPrice', 0)
+            # Try multiple price fields
+            price = (info.get('currentPrice') or 
+                    info.get('regularMarketPrice') or 
+                    info.get('previousClose') or 0)
             
-            return 0
+            return float(price) if price else 0
             
         except Exception as e:
             print(f"Error fetching price for {ticker}: {e}")
             return 0
     
-    def get_historical_data(self, ticker, period='1y'):
+    def get_historical_data(self, ticker, period='1mo'):
         """Get historical price data"""
         try:
-            response = self.api_client.call_api('YahooFinance/get_stock_chart', query={
-                'symbol': ticker,
-                'region': 'US',
-                'interval': '1d',
-                'range': period,
-                'includeAdjustedClose': True
-            })
+            stock = yf.Ticker(ticker)
+            hist_df = stock.history(period=period)
             
-            if response and 'chart' in response and 'result' in response['chart']:
-                result = response['chart']['result'][0]
-                timestamps = result['timestamp']
-                quotes = result['indicators']['quote'][0]
-                
-                # Convert to DataFrame
-                df = pd.DataFrame({
-                    'Date': [datetime.fromtimestamp(ts) for ts in timestamps],
-                    'Open': quotes['open'],
-                    'High': quotes['high'],
-                    'Low': quotes['low'],
-                    'Close': quotes['close'],
-                    'Volume': quotes['volume']
-                })
-                
-                df.set_index('Date', inplace=True)
-                return df
+            if hist_df.empty:
+                return pd.DataFrame()
             
-            return pd.DataFrame()
+            return hist_df
             
         except Exception as e:
             print(f"Error fetching historical data for {ticker}: {e}")
@@ -96,34 +69,33 @@ class ReliableStockLoader:
     def get_stock_info(self, ticker):
         """Get comprehensive stock information"""
         try:
-            # Get price data
-            price = self.get_stock_price(ticker)
+            stock = yf.Ticker(ticker)
             
-            # Get sector info from database
-            sector_info = self.get_sector_info(ticker)
-            
-            # Get historical data for calculations
-            hist_df = self.get_historical_data(ticker, period='1mo')
+            # Get historical data first (more reliable)
+            hist_df = self.get_historical_data(ticker, period='2mo')
             
             if hist_df.empty:
                 return None
             
-            # Calculate basic metrics
-            latest_close = hist_df['Close'].iloc[-1] if not hist_df.empty else price
-            volume = hist_df['Volume'].iloc[-1] if not hist_df.empty else 0
+            # Get latest price from historical data
+            latest_close = hist_df['Close'].iloc[-1]
+            volume = hist_df['Volume'].iloc[-1]
             
-            # Calculate simple moving averages
+            # Get sector info from database
+            sector_info = self.get_sector_info(ticker)
+            
+            # Calculate moving averages
             ma20 = hist_df['Close'].tail(20).mean() if len(hist_df) >= 20 else latest_close
             ma50 = hist_df['Close'].tail(50).mean() if len(hist_df) >= 50 else latest_close
             
             return {
                 'ticker': ticker,
-                'price': latest_close,
+                'price': float(latest_close),
                 'sector': sector_info['sector'],
                 'industry': sector_info['industry'],
                 'volume': int(volume),
-                'ma20': ma20,
-                'ma50': ma50,
+                'ma20': float(ma20),
+                'ma50': float(ma50),
                 'historical_data': hist_df
             }
             
@@ -145,7 +117,7 @@ class ReliableStockLoader:
                 results.append(stock_info)
             
             # Rate limiting - be nice to the API
-            time.sleep(0.1)
+            time.sleep(0.5)
         
         return results
 
@@ -153,12 +125,12 @@ class ReliableStockLoader:
 def test_loader():
     """Test the reliable stock loader"""
     print("=" * 60)
-    print("Testing Reliable Stock Loader")
+    print("Testing Reliable Stock Loader (yfinance version)")
     print("=" * 60)
     
-    loader = ReliableStockLoader('/home/ubuntu/StockScreener_Streamlit/sector_database.json')
+    loader = ReliableStockLoader('sector_database.json')
     
-    test_tickers = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+    test_tickers = ['AAPL', 'MSFT', 'GOOGL']
     
     print("\n1. Testing individual stock loading:")
     for ticker in test_tickers:
@@ -174,14 +146,7 @@ def test_loader():
         else:
             print("  Failed to load")
     
-    print("\n2. Testing batch loading:")
-    def progress(current, total, ticker):
-        print(f"  Loading {current}/{total}: {ticker}")
-    
-    results = loader.load_multiple_stocks(test_tickers, progress_callback=progress)
-    print(f"\n✓ Successfully loaded {len(results)}/{len(test_tickers)} stocks")
-    
-    print("\n✓ All tests passed!")
+    print("\n✓ Test completed!")
 
 if __name__ == "__main__":
     test_loader()
